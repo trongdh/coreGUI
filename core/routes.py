@@ -2,7 +2,7 @@ from core import app
 from flask import Flask, render_template, jsonify, request
 from core.models import Item
 import pandas as pd
-
+from collections import OrderedDict
 
 @app.route('/')
 @app.route('/home')
@@ -21,9 +21,10 @@ def get_data():
     df = pd.read_csv(r'kpi/output/' + periodSelect + '.csv')
     df['Start_time'] = pd.to_datetime(df['Start_time'], format="%Y%m%d%H%M")
     df['End_time'] = pd.to_datetime(df['End_time'], format="%Y%m%d%H%M")
-    data_dict = df.to_dict(orient='records')
-    columns = [{'data': col, 'title': col} for col in df.columns]
-    return jsonify({'columns': columns, 'data': data_dict})
+    columns = df.columns.tolist()
+    data = df.values.tolist()
+    return jsonify({'columns': columns, 'data': data})
+
 
 
 @app.route('/setting')

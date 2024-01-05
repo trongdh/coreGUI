@@ -65,11 +65,15 @@ content %}
                   <button
                     type="button"
                     class="btn btn-dark"
-                    onclick="updateTable()"
+                    onclick="return updateTable()"
                   >
                     Query
                   </button>
                 </div>
+                <div
+                  id="errorMessage"
+                  style="color: red; font-weight: bold"
+                ></div>
               </form>
             </div>
           </div>
@@ -78,10 +82,26 @@ content %}
       <div class="col-12">
         <div class="card">
           <h5 class="card-header">Data</h5>
-          <div class="table-responsive text-nowrap">
+          <div class="table-responsive text-nowrap" id="div_kpi_table">
             <table id="myTable" class="table">
-              <thead id="myTable_head"></thead>
-              <tbody class="table-border-bottom-0" id="myTable_body"></tbody>
+              <thead id="tableHead">
+                <tr>
+                  <!-- Render initial table headers dynamically -->
+                  {% for header in headers %}
+                  <th>{{ header }}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <!-- Render initial table rows dynamically -->
+                {% for row in rows %}
+                <tr>
+                  {% for key, value in row.items() %}
+                  <td>{{ value }}</td>
+                  {% endfor %}
+                </tr>
+                {% endfor %}
+              </tbody>
             </table>
           </div>
         </div>
@@ -162,38 +182,84 @@ content %}
 
 <!-- Script for Query OnClick button -->
 <script>
-  var table = null;
+  // Function to update the table
   function updateTable() {
-    var selectedValue = document.getElementById("periodSelect").value;
-    if ($.fn.DataTable.isDataTable("#myTable")) {
-      console.log("YES");
-      $("#myTable").DataTable().destroy();
-    }
+    // Make AJAX request to Flask route for data update
+    $("#errorMessage").text("");
     $.ajax({
       type: "POST",
       url: "/get_data",
       data: $("#filter").serialize(),
       success: function (response) {
-        console.log(response.data);
+        // Update table headers
+        var newHeaders = "";
+        if ($.fn.DataTable.isDataTable("#myTable")) {
+          $("#myTable").DataTable().clear().destroy();
+        }
+        $.each(response.columns, function (index, value) {
+          newHeaders += "<th>" + value + "</th>";
+        });
+        $("#tableHead").html("<tr>" + newHeaders + "</tr>");
+
+        // Update table rows
+        var newRows = "";
+        $.each(response.data, function (index, row) {
+          newRows += "<tr>";
+          $.each(row, function (key, value) {
+            newRows += "<td>" + value + "</td>";
+          });
+          newRows += "</tr>";
+        });
+        console.log(newRows);
+        $("#tableBody").html(newRows);
+
+        // Reinitialize DataTable
         $("#myTable").DataTable({
-          destroy: true,
-          data: response.data,
-          columns: response.columns,
           searching: true, // Enable search functionality
           paging: true, // Enable pagination
           lengthMenu: [5, 10, 25],
-          buttons: ["csv"],
         });
       },
-      error: function (error) {
-        console.error("Error updating table:", error);
+      error: function (xhr, status, error) {
+        // Handle AJAX errors here
+        console.error("AJAX Error:", status, error);
+        var table = $("#myTable").DataTable();
+        // Clear existing data and headers when error occurs
+        table.clear();
+        table.columns().header().to$().empty();
+
+        $("#errorMessage").text(
+          "An error occurred while fetching data. Maybe template file doesn't exist. Please try again."
+        );
+        var tableOptions = table.settings().init();
+        table.destroy();
+        table = $("#myTable").DataTable(tableOptions);
       },
     });
     //return false;
   }
+
   $(document).ready(function () {
-    // DataTable initialization
-    table = $("#myTable").DataTable();
+    // Initialize DataTable
+    $("#myTable").DataTable({
+      searching: true, // Enable search functionality
+      paging: true, // Enable pagination
+      lengthMenu: [5, 10, 25],
+    });
+
+    // Trigger table update on some event, e.g., button click
+    $("#updateButton").on("click", function () {
+      updateTable();
+    });
+
+    // Call the updateTable function once the document is ready
+    updateTable();
   });
 </script>
+<style>
+  .dataTables_length,
+  .dataTables_info {
+    margin-left: 20px; /* Adjust the left margin as needed */
+  }
+</style>
 {% endblock %}
