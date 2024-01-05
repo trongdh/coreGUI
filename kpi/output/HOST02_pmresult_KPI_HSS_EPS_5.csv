@@ -1,0 +1,9 @@
+Start_time,End_time,NE,Object,Successful Response Rate of AIR Messages,Successful Response Rate of CLR Messages,Successful Response Rate of IDR Messages,ULR-SR (LUSR EPS)
+202401040510,202401040515,HLTU01_FE,Diameter Local Entity ID:Diameter local entity ID=0,98,99,0,100.045
+202401040510,202401040515,HLTU02_FE,Diameter Local Entity ID:Diameter local entity ID=0,98,99,0,100
+202401040515,202401040520,HLTU01_FE,Diameter Local Entity ID:Diameter local entity ID=0,98,100,0,100
+202401040515,202401040520,HLTU02_FE,Diameter Local Entity ID:Diameter local entity ID=0,98,100,0,100
+202401040520,202401040525,HLTU01_FE,Diameter Local Entity ID:Diameter local entity ID=0,98,100,0,100
+202401040520,202401040525,HLTU02_FE,Diameter Local Entity ID:Diameter local entity ID=0,98,99,0,100
+202401040525,202401040530,HLTU01_FE,Diameter Local Entity ID:Diameter local entity ID=0,98,99,0,99.914
+202401040525,202401040530,HLTU02_FE,Diameter Local Entity ID:Diameter local entity ID=0,98,99,0,100

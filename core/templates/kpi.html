@@ -1,0 +1,199 @@
+{% extends 'base.html' %} {% block title %} KPI Page {% endblock %} {% block
+content %}
+<div class="content-wrapper">
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4">
+      <span class="text-muted fw-light">Query KPI /</span>
+      Table
+    </h4>
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <h5 class="card-header">Filter</h5>
+          <div class="card-body">
+            <div class="demo-inline-spacing">
+              <form id="filter" action="/get_data" , method="POST">
+                <div class="mt-2 mb-3 btn-group">
+                  <label for="countrySelect" class="form-label"
+                    >Select country:
+                  </label>
+                  <select id="countrySelect" class="form-select form-select-sm">
+                    <option value="" selected="selected">Select country</option>
+                  </select>
+                </div>
+                <div class="mt-2 mb-3 btn-group">
+                  <label for="templateSelect" class="form-label"
+                    >Select template:
+                  </label>
+                  <select
+                    id="templateSelect"
+                    class="form-select form-select-sm"
+                  >
+                    <option value="" selected="selected">
+                      Select tempalte
+                    </option>
+                  </select>
+                </div>
+                <div class="mt-2 mb-3 btn-group">
+                  <label for="templateSelect" class="form-label"
+                    >Select period:
+                  </label>
+                  <select
+                    id="periodSelect"
+                    class="form-select form-select-sm"
+                    name="periodSelect"
+                  >
+                    <option value="" selected="selected">Select period</option>
+                  </select>
+                </div>
+                <div class="mb-3 row">
+                  <label
+                    for="html5-datetime-local-input"
+                    class="col-md-2 col-form-label"
+                    >Start Datetime</label
+                  >
+                  <div class="col-md-10">
+                    <input
+                      class="form-control"
+                      type="datetime-local"
+                      id="html5-datetime-local-input"
+                      name="datetime_input"
+                    />
+                  </div>
+                </div>
+                <div class="mt-2 mb-3 btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-dark"
+                    onclick="updateTable()"
+                  >
+                    Query
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card">
+          <h5 class="card-header">Data</h5>
+          <div class="table-responsive text-nowrap">
+            <table id="myTable" class="table">
+              <thead id="myTable_head"></thead>
+              <tbody class="table-border-bottom-0" id="myTable_body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- content-wrapper ends -->
+  <!-- partial:partials/_footer.html -->
+
+  <!-- partial
+</div> -->
+</div>
+
+<!-- Script to set Datetime to today -->
+<script>
+  var currentDate = new Date();
+  var timezoneOffSet = currentDate.getTimezoneOffset();
+  var formattedDate = currentDate.toISOString().substring(0, 16);
+  document.getElementById("html5-datetime-local-input").value = formattedDate;
+</script>
+
+<!-- Script to parse drop-down value -->
+<script>
+  var subjectObject = {
+    VTP: {
+      KPI_IMS: ["15", "60"],
+      KPI_HSS_EPS: ["5", "60"],
+      KPI_HLR_MAP: ["5", "60"],
+      KPI_Sub_HLR_HSS: ["5", "60"],
+    },
+    NCM: {
+      KPI_SBC: ["5", "60"],
+      KPI_HSS_EPS: ["5", "60"],
+      KPI_HLR_MAP: ["5", "60"],
+      KPI_Sub_HLR_HSS: ["5", "60"],
+    },
+    MYT: {
+      KPI_IMS: ["15", "60"],
+      KPI_SBC: ["5", "60"],
+      KPI_HSS_EPS: ["5", "60"],
+      KPI_HLR_MAP: ["5", "60"],
+      KPI_Sub_HLR_HSS: ["5", "60"],
+    },
+  };
+  window.onload = function () {
+    var countrySelect = document.getElementById("countrySelect");
+    var templateSelect = document.getElementById("templateSelect");
+    var periodSelect = document.getElementById("periodSelect");
+    for (var x in subjectObject) {
+      countrySelect.options[countrySelect.options.length] = new Option(x, x);
+    }
+    countrySelect.onchange = function () {
+      //empty tempalte- and period- dropdowns
+      periodSelect.length = 1;
+      templateSelect.length = 1;
+      //display correct values
+      for (var y in subjectObject[this.value]) {
+        templateSelect.options[templateSelect.options.length] = new Option(
+          y,
+          y
+        );
+      }
+    };
+    templateSelect.onchange = function () {
+      //empty Chapters dropdown
+      periodSelect.length = 1;
+      //display correct values
+      var z = subjectObject[countrySelect.value][this.value];
+      for (var i = 0; i < z.length; i++) {
+        periodSelect.options[periodSelect.options.length] = new Option(
+          this.value + "_" + z[i],
+          this.value + "_" + z[i]
+        );
+      }
+    };
+  };
+</script>
+
+<!-- Script for Query OnClick button -->
+<script>
+  var table = null;
+  function updateTable() {
+    var selectedValue = document.getElementById("periodSelect").value;
+    if ($.fn.DataTable.isDataTable("#myTable")) {
+      console.log("YES");
+      $("#myTable").DataTable().destroy();
+    }
+    $.ajax({
+      type: "POST",
+      url: "/get_data",
+      data: $("#filter").serialize(),
+      success: function (response) {
+        console.log(response.data);
+        $("#myTable").DataTable({
+          destroy: true,
+          data: response.data,
+          columns: response.columns,
+          searching: true, // Enable search functionality
+          paging: true, // Enable pagination
+          lengthMenu: [5, 10, 25],
+          buttons: ["csv"],
+        });
+      },
+      error: function (error) {
+        console.error("Error updating table:", error);
+      },
+    });
+    //return false;
+  }
+  $(document).ready(function () {
+    // DataTable initialization
+    table = $("#myTable").DataTable();
+  });
+</script>
+{% endblock %}

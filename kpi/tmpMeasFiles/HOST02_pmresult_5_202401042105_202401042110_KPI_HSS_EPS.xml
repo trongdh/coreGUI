@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mdc SYSTEM "MeasDataCollection.dtd"><mdc>
+<mfh>
+<cbt>202401042105</cbt>
+</mfh>
+<md>
+<mi>
+<mts>202401042105</mts>
+<gp>5</gp>
+<mt>Successful Response Rate of AIR Messages</mt>
+<mt>Successful Response Rate of CLR Messages</mt>
+<mt>Successful Response Rate of IDR Messages</mt>
+<mt>ULR-SR (LUSR EPS)</mt>
+<mv>
+<moid>HLTU01_FE/Diameter Local Entity ID:Diameter local entity ID=0</moid>
+<r>98</r>
+<r>100</r>
+<r>0</r>
+<r>100</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU02_FE/Diameter Local Entity ID:Diameter local entity ID=0</moid>
+<r>98</r>
+<r>99</r>
+<r>0</r>
+<r>100</r>
+<sf>false</sf>
+</mv>
+</mi>
+</md>
+<mff>
+<ts>202401042110</ts>
+</mff>
+</mdc>

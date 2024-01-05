@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mdc SYSTEM "MeasDataCollection.dtd"><mdc>
+<mfh>
+<cbt>202401042105</cbt>
+</mfh>
+<md>
+<mi>
+<mts>202401042105</mts>
+<gp>5</gp>
+<mt>Absent Subscriber</mt>
+<mt>MAP_Success_Rate</mt>
+<mt>Operation Requests</mt>
+<mt>Operation Timeout Times</mt>
+<mt>Other Errors</mt>
+<mt>System Failure</mt>
+<mt>Unknown Subscriber</mt>
+<mv>
+<moid>HLTU01_FE/Service ID:29</moid>
+<r>0</r>
+<r>92.88</r>
+<r>46197</r>
+<r>0</r>
+<r>0</r>
+<r>324</r>
+<r>0</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU01_FE/Service ID:26</moid>
+<r>0</r>
+<r>99.98</r>
+<r>686264</r>
+<r>130</r>
+<r>0</r>
+<r>0</r>
+<r>711</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU01_FE/Service ID:22</moid>
+<r>0</r>
+<r>100</r>
+<r>102636</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<r>179</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU01_FE/Service ID:16</moid>
+<r>0</r>
+<r>99.967</r>
+<r>9082</r>
+<r>0</r>
+<r>1</r>
+<r>0</r>
+<r>11</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU01_FE/Service ID:15</moid>
+<r>2258</r>
+<r>99.29</r>
+<r>51801</r>
+<r>0</r>
+<r>1</r>
+<r>368</r>
+<r>16</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU01_FE/Service ID:11</moid>
+<r>0</r>
+<r>100</r>
+<r>42678</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU01_FE/Service ID:3</moid>
+<r>0</r>
+<r>99.991</r>
+<r>125957</r>
+<r>1</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU01_FE/Service ID:2</moid>
+<r>6816</r>
+<r>99.16</r>
+<r>43914</r>
+<r>1</r>
+<r>0</r>
+<r>368</r>
+<r>0</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU01_FE/Service ID:1</moid>
+<r>0</r>
+<r>100</r>
+<r>25211</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU01_FE/Service ID:0</moid>
+<r>0</r>
+<r>99.997</r>
+<r>207780</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU02_FE/Service ID:29</moid>
+<r>0</r>
+<r>92.902</r>
+<r>30952</r>
+<r>0</r>
+<r>0</r>
+<r>223</r>
+<r>0</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU02_FE/Service ID:26</moid>
+<r>0</r>
+<r>99.998</r>
+<r>361905</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<r>380</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU02_FE/Service ID:22</moid>
+<r>3</r>
+<r>100</r>
+<r>189449</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<r>8</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU02_FE/Service ID:16</moid>
+<r>0</r>
+<r>99.887</r>
+<r>2653</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<r>1</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU02_FE/Service ID:15</moid>
+<r>1668</r>
+<r>99.203</r>
+<r>37496</r>
+<r>0</r>
+<r>1</r>
+<r>299</r>
+<r>8</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU02_FE/Service ID:11</moid>
+<r>0</r>
+<r>100</r>
+<r>33516</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU02_FE/Service ID:3</moid>
+<r>0</r>
+<r>99.992</r>
+<r>84473</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU02_FE/Service ID:2</moid>
+<r>5095</r>
+<r>99.053</r>
+<r>31683</r>
+<r>0</r>
+<r>0</r>
+<r>299</r>
+<r>0</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU02_FE/Service ID:1</moid>
+<r>0</r>
+<r>100</r>
+<r>19779</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU02_FE/Service ID:0</moid>
+<r>0</r>
+<r>99.997</r>
+<r>117902</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<r>0</r>
+<sf>false</sf>
+</mv>
+</mi>
+</md>
+<mff>
+<ts>202401042110</ts>
+</mff>
+</mdc>

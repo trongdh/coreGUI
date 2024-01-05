@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mdc SYSTEM "MeasDataCollection.dtd"><mdc>
+<mfh>
+<cbt>202401050305</cbt>
+</mfh>
+<md>
+<mi>
+<mts>202401050305</mts>
+<gp>5</gp>
+<mt>Number of CS Subscribers Roaming in the Home PLMN</mt>
+<mt>Number of CS Subscribers Roaming Outside the Home PLMN Country</mt>
+<mt>Number of EPS Active Subscribers</mt>
+<mt>Number of EPS International Roaming Subscribers</mt>
+<mt>Number of PS Subscribers Roaming in the Home PLMN</mt>
+<mt>Number of PS Subscribers Roaming Outside the Home PLMN Country</mt>
+<mt>Number of Static EPS Subscribers</mt>
+<mt>Number of VoLTE Subscribers</mt>
+<mt>Total Number of 2/3/4G Subscribers</mt>
+<mt>Total Number of Subscribers</mt>
+<mv>
+<moid>HLTU01_FE/Measurement object ID:Measurement OBJECT ID=OBJECT0</moid>
+<r>3.24796e+06</r>
+<r>3464</r>
+<r>477601</r>
+<r>4260</r>
+<r>1.86037e+06</r>
+<r>3277</r>
+<r>5.6901e+06</r>
+<r>0</r>
+<r>7.77044e+06</r>
+<r>7.77044e+06</r>
+<sf>false</sf>
+</mv>
+<mv>
+<moid>HLTU02_FE/Measurement object ID:Measurement OBJECT ID=OBJECT0</moid>
+<r>3.20446e+06</r>
+<r>3474</r>
+<r>474574</r>
+<r>4303</r>
+<r>1.83215e+06</r>
+<r>3290</r>
+<r>5.68673e+06</r>
+<r>0</r>
+<r>7.77044e+06</r>
+<r>7.77044e+06</r>
+<sf>false</sf>
+</mv>
+</mi>
+</md>
+<mff>
+<ts>202401050310</ts>
+</mff>
+</mdc>

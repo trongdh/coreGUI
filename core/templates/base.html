@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Core App</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='assets/vendor/fonts/boxicons.css')}}"
+    />
+
+    <!-- Core CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/buttons/2.3.5/css/buttons.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='assets/vendor/css/core.css')}}"
+      class="template-customizer-core-css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='assets/vendor/css/theme-default.css')}}"
+      class="template-customizer-theme-css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='assets/css/demo.css')}}"
+    />
+
+    <!-- Vendors CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}"
+    />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="{{ url_for('static',filename='assets/vendor/js/helpers.js')}}"></script>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{{ url_for('static',filename='assets/js/config.js')}}"></script>
+  </head>
+
+  <body>
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+
+        <aside
+          id="layout-menu"
+          class="layout-menu menu-vertical menu bg-menu-theme"
+        >
+          <div class="menu-inner-shadow"></div>
+          <!-- Components -->
+          <!-- User interface -->
+          <li class="menu-item active open">
+            <a href="{{ url_for('home_page') }}" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-box"></i>
+              <div data-i18n="User interface">Core Mobile</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="{{ url_for('kpi_page') }}" class="menu-link">
+                  <div data-i18n="Accordion">KPI</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </aside>
+        <!-- / Menu -->
+        <div class="layout-page">{% block content %} {% endblock %}</div>
+        <!-- / Layout page -->
+      </div>
+    </div>
+    <!-- Future Content here -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- plugins:js -->
+
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+
+    <script src="{{ url_for('static',filename='assets/vendor/libs/jquery/jquery.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/vendor/libs/popper/popper.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/vendor/js/bootstrap.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/vendor/js/menu.js')}}"></script>
+
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+    <script src="{{ url_for('static',filename='assets/js/main.js')}}"></script>
+
+    <!-- Page JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.5/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.5/js/buttons.html5.min.js"></script>
+  </body>
+</html>
