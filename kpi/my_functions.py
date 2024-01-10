@@ -58,31 +58,31 @@ def xmltoExel(input_file, output_file):
 # Function to convert xml to CSV
 
 
-def xmltoCSV(input_file, output_file):
+from lxml import etree
+import pandas as pd
+import pathlib
+
+def xml_to_csv(input_file, output_file):
     tree = etree.parse(input_file)
-    start_time = tree.xpath('.//mts')[0].text
-    end_time = tree.xpath('.//ts')[0].text
-    headers = tree.xpath('.//mt')
-    # Initial some column names
-    header_list = ['Start_time', 'End_time', 'NE', 'Object']
-    for header in headers:
-        header_list.append(header.text)
-    mv_data = tree.xpath('.//mv')
+    start_time = tree.find('.//mts').text
+    end_time = tree.find('.//ts').text
+
+    headers = [header.text for header in tree.findall('.//mt')]
+    header_list = ['Start_time', 'End_time', 'NE', 'Object'] + headers
+
     value_list = []
-    for mv in mv_data:
+    for mv in tree.findall('.//mv'):
         mv_list = [start_time, end_time]
-        objectItem = mv.find('moid').text.split('/')
-        mv_list.append(objectItem[0])
-        mv_list.append(objectItem[1])
-        r_data = mv.findall('.//r')
-        for r in r_data:
-            mv_list.append(r.text)
+        object_item = mv.find('moid').text.split('/')
+        mv_list.extend(object_item)
+        r_data = [r.text for r in mv.findall('.//r')]
+        mv_list.extend(r_data)
         value_list.append(mv_list)
+
     df = pd.DataFrame(value_list, columns=header_list)
-    # Check if the CSV file exists or not -> For print column name 1 time
     output_file = pathlib.Path(output_file)
-    df.to_csv(output_file, mode='a', index=False,
-              header=not output_file.exists())
+    df.to_csv(output_file, mode='a', index=False, header=not output_file.exists())
+
 
 # Function to sftp file
 
