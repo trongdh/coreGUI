@@ -87,40 +87,37 @@ def xml_to_csv(input_file, output_file):
 # Function to sftp file
 
 
-def sftpToGetLatestFile(host, port, username, password, locaPath, remotePath, tempalteName, measPeriod):
-    latest = 0
-    latestfile = None
+def sftp_to_get_latest_file(host, port, username, password, local_path, remote_path, template_name, meas_period):
+    latest_time = 0
+    latest_file = None
+
     try:
         transport = paramiko.Transport((host, port))
         transport.connect(None, username, password)
         sftp = paramiko.SFTPClient.from_transport(transport)
-        print('Connect sftp ok')
-        # Get all files with prefix
-        # measFilePrefix = 'HOST02_pmresult_1693700401_5'
-        # for fileattr in sftp.listdir_attr(measFilePath):
-        #     if fileattr.filename.startswith(measFilePrefix):
-        #         latestfile = fileattr.filename
-        #         print(latestfile)
-        #         sftp.get(measFilePath + "/" + latestfile, tmpMeasFolder + latestfile)
-        #         gunzip_shutil(tmpMeasFolder + latestfile, tmpMeasFolder + latestfile.replace('gz',''))
+        print('Connected to SFTP successfully')
 
-        # Get latest file with prefix, can modify to load the measFilePrefix
+        for file_attr in sftp.listdir_attr(remote_path):
+            if (template_name in file_attr.filename) and (('_' + meas_period + '_') in file_attr.filename) and file_attr.st_mtime > latest_time:
+                latest_time = file_attr.st_mtime
+                latest_file = file_attr.filename
 
-        for fileattr in sftp.listdir_attr(remotePath):
-            # if fileattr.filename.startswith(measFilePrefix) and fileattr.st_mtime > latest:
-            if (tempalteName in fileattr.filename) and (('_' + measPeriod + '_') in fileattr.filename) and fileattr.st_mtime > latest:
-                latest = fileattr.st_mtime
-                latestfile = fileattr.filename
-        if latestfile is not None:
-            sftp.get(remotePath + "/" + latestfile, locaPath + latestfile)
-            gunzip_shutil(locaPath + latestfile, locaPath +
-                          latestfile.replace('gz', ''))
-            if os.path.exists(locaPath + latestfile):
-                os.remove(locaPath + latestfile)
-            else:
-                print('File does not exist')
+        if latest_file is not None:
+            remote_file_path = os.path.join(remote_path, latest_file)
+            local_file_path = os.path.join(local_path, latest_file)
+
+            sftp.get(remote_file_path, local_file_path)
+            
+            # Decompress if the file is gzipped
+            if latest_file.endswith('.gz'):
+                with gzip.open(local_file_path, 'rb') as f_in, open(local_file_path.replace('.gz', ''), 'wb') as f_out:
+                    f_out.write(f_in.read())
+
+                os.remove(local_file_path)  # Remove the gzipped file
+
         # Close SFTP
         sftp.close()
         transport.close()
+
     except Exception as e:
-        print(f"Something wrong: {e}")
+        print(f"An error occurred: {e}")
