@@ -1,59 +1,53 @@
-{% extends 'base.html' %}
-{% block title %} KPI Page {% endblock %}
-{% block content %}
-<div class="content-wrapper">
-  <!-- ... (existing HTML structure) ... -->
-</div>
+import streamlit as st
+import xml.etree.ElementTree as ET
 
-<!-- Script to set Datetime to today -->
-<script src="your-js-file.js"></script>
+# Function to parse XML content
+def parse_xml(xml_content):
+    root = ET.fromstring(xml_content)
+    data = []
 
-<style>
-  .dataTables_length, .dataTables_info {
-    margin-left: 20px; /* Adjust the left margin as needed */
-  }
-</style>
-{% endblock %}
+    # Extract data from XML
+    for item in root.findall('.//item'):  # Adjust the XPath based on your XML structure
+        row = {}
+        for field in item.findall('./*'):
+            row[field.tag] = field.text
+        data.append(row)
 
-// Script to set Datetime to today
-var currentDate = new Date();
-var timezoneOffSet = currentDate.getTimezoneOffset();
-var formattedDate = currentDate.toISOString().substring(0, 16);
-document.getElementById("html5-datetime-local-input").value = formattedDate;
+    return data
 
-// Script to parse drop-down value
-window.onload = function () {
-  var countrySelect = document.getElementById("countrySelect");
-  var templateSelect = document.getElementById("templateSelect");
-  var periodSelect = document.getElementById("periodSelect");
+# Function to read and append XML data to the table
+def read_and_append_xml(xml_files):
+    # Get session state
+    session_state = st.session_state
 
-  function populateDropdown(selectElement, options) {
-    selectElement.length = 1;
-    for (var option in options) {
-      selectElement.options[selectElement.options.length] = new Option(option, option);
-    }
-  }
+    # Initialize data if it doesn't exist in the session state
+    if 'all_data' not in session_state:
+        session_state.all_data = []
 
-  countrySelect.onchange = function () {
-    periodSelect.length = 1;
-    templateSelect.length = 1;
-    populateDropdown(templateSelect, subjectObject[this.value]);
-  };
+    # Iterate through uploaded files
+    for xml_file in xml_files:
+        # Read XML content
+        xml_content = xml_file.read()
 
-  templateSelect.onchange = function () {
-    periodSelect.length = 1;
-    var z = subjectObject[countrySelect.value][this.value];
-    for (var i = 0; i < z.length; i++) {
-      periodSelect.options[periodSelect.options.length] = new Option(this.value + "_" + z[i], this.value + "_" + z[i]);
-    }
-  };
-};
+        # Parse XML
+        data = parse_xml(xml_content)
 
-// Function to update the table
-function updateTable() {
-  // ... (existing AJAX and table update logic)
-}
+        # Append data to the session state
+        session_state.all_data.extend(data)
 
-$(document).ready(function () {
-  // ... (existing initialization logic)
-});
+    # Display table
+    st.write("Combined XML Data:")
+    st.table(session_state.all_data)
+
+def main():
+    st.title("Append Multiple XML Files to Table")
+
+    # File upload
+    xml_files = st.file_uploader("Upload XML Files", type=["xml"], accept_multiple_files=True)
+
+    if st.button("Read XML Files"):
+        if xml_files is not None and len(xml_files) > 0:
+            read_and_append_xml(xml_files)
+
+if __name__ == "__main__":
+    main()
